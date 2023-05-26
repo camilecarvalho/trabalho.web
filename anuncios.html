@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscar Anúncios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscar Anúncios</h1>
+  <form id="search-form">
+    <label for="description">Descrição:</label>
+    <input type="text" id="description" name="description">
+
+    <label for="min-value">Valor Mínimo:</label>
+    <input type="text" id="min-value" name="min-value">
+
+    <label for="max-value">Valor Máximo:</label>
+    <input type="text" id="max-value" name="max-value">
+
+    <label for="start-date">Data de Início:</label>
+    <input type="date" id="start-date" name="start-date">
+
+    <label for="end-date">Data de Término:</label>
+    <input type="date" id="end-date" name="end-date">
+
+    <input type="submit" value="Buscar">
+  </form>
+
+  <table id="results-table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Data do Anúncio</th>
+        <th>Data de Vencimento</th>
+      </tr>
+    </thead>
+    <tbody id="results-body"></tbody>
+  </table>
+
+  <script>
+    const searchForm = document.getElementById('search-form');
+    const resultsBody = document.getElementById('results-body');
+
+    searchForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+
+      const formData = new FormData(searchForm);
+
+      // Aqui você pode utilizar JavaScript para enviar os dados do formulário para o servidor,
+      // realizar a busca no banco de dados e retornar os resultados
+
+      // Exemplo de como adicionar os resultados à tabela
+      const dummyResults = [
+        { description: 'Anúncio 1', value: 100.00, adDate: '2023-05-26', expiryDate: '2023-06-30' },
+        { description: 'Anúncio 2', value: 50.00, adDate: '2023-05-27', expiryDate: '2023-06-15' },
+        { description: 'Anúncio 3', value: 200.00, adDate: '2023-05-28', expiryDate: '2023-06-20' }
+      ];
+
+      resultsBody.innerHTML = '';
+
+      dummyResults.forEach(function(result) {
+        const row = document.createElement('tr');
+        const descriptionCell = document.createElement('td');
+        const valueCell = document.createElement('td');
+        const adDateCell = document.createElement('td');
+        const expiryDateCell = document.createElement('td');
+
+        descriptionCell.textContent = result.description;
+        valueCell.textContent = result.value.toFixed(2);
+        adDateCell.textContent = result.adDate;
+        expiryDateCell.textContent = result.expiryDate;
+
+        row.appendChild(descriptionCell);
+        row.appendChild(valueCell);
+        row.appendChild(adDateCell);
+        row.appendChild(expiryDateCell);
+
+        resultsBody.appendChild(row);
+      });
+    });
+  </script>
+</body>
+</html>
